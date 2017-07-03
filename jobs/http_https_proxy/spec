@@ -1,0 +1,17 @@
+---
+name: http_https_proxy
+
+templates:
+  ctl.erb:  bin/ctl
+
+packages:
+- proxy
+- nodejs
+
+properties:
+  turbulence_host:
+    default: 127.0.0.1
+    description: IP address of the turbulence api job
+  listening_port:
+    default: 3000
+    description: Port the proxy will listen for incoming connections

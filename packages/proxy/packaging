@@ -1,0 +1,4 @@
+set -e
+
+cp -a proxy/* ${BOSH_INSTALL_TARGET}
+chmod -R +x ${BOSH_INSTALL_TARGET}

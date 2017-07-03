@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -e
+
+RUN_DIR=/var/vcap/sys/run/http_https_proxy
+LOG_DIR=/var/vcap/sys/log/http_https_proxy
+PIDFILE=${RUN_DIR}/pid
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    echo $$ > $PIDFILE
+
+    export PATH=/var/vcap/packages/nodejs/bin:$PATH
+
+    cd /var/vcap/packages/proxy
+
+    npm install \
+      >>  $LOG_DIR/proxy.stdout.log \
+      2>> $LOG_DIR/proxy.stderr.log
+
+    export LISTENING_PORT=<%= properties.listening_port %>
+    export TURBULENCE_HOST=<%= properties.turbulence_host %>
+    exec node proxy.js \
+      >>  $LOG_DIR/proxy.stdout.log \
+      2>> $LOG_DIR/proxy.stderr.log
+    ;;
+
+  stop)
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+    ;;
+
+esac

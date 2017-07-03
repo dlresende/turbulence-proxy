@@ -1,0 +1,8 @@
+---
+name: proxy
+
+dependencies:
+- nodejs
+
+files:
+- proxy/*

@@ -1,0 +1,11 @@
+{
+  "name": "http_https_proxy",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node proxy.js"
+  },
+  "dependencies": {
+    "http-proxy": "~1.16.2"
+  }
+}
+

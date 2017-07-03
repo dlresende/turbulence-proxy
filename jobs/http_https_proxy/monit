@@ -1,0 +1,5 @@
+check process http_https_proxy
+  with pidfile /var/vcap/sys/run/http_https_proxy/pid
+  start program "/var/vcap/jobs/http_https_proxy/bin/ctl start"
+  stop program "/var/vcap/jobs/http_https_proxy/bin/ctl stop"
+  group vcap
